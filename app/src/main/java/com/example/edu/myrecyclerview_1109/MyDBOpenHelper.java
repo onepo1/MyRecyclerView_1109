@@ -4,6 +4,9 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class MyDBOpenHelper extends SQLiteOpenHelper {
     private static final String name = "awe.db";
     private static final SQLiteDatabase.CursorFactory factory = null;
@@ -20,22 +23,26 @@ public class MyDBOpenHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE awe_country (_id INTEGER PRIMARY KEY AUTOINCREMENT, country TEXT, capital TEXT);");
-
-        for(int i=0; i<10; i++){
-            db.execSQL("INSERT INTO awe_country VALUES( null, '" + "Country"+ i + "', '" + "Capital" + i + "');");
-        }
+        String sql = "CREATE TABLE ordered (_id INTEGER PRIMARY KEY AUTOINCREMENT, itemCount INTEGER, itemDay TEXT);";
+        db.execSQL(sql);
+//        db.execSQL("CREATE TABLE ordered (_id INTEGER PRIMARY KEY AUTOINCREMENT,itemImg text, itemCount INTEGER, itemDay TEXT);");
+//        String itemImg_route = "android_image_";
+//        SimpleDateFormat format = new SimpleDateFormat("yyyyMMddHHmmssSSS");
+//        String itemDay = format.format(new Date());
+//        for(int i=0; i<10; i++){
+//            db.execSQL("INSERT INTO ordered VALUES( null, '" + "itemImg_route"+ i + "','" + i + "', '" + itemDay + "');");
+//        }
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE awe_country ;");
+        db.execSQL("DROP TABLE ordered ;");
         onCreate(db);
 //        Toast.makeText(this.,"onUpgrade", Toast.LENGTH_LONG).show();
     }
 
     public void deleteRecord(SQLiteDatabase mdb, String country) {
-        mdb.execSQL("DELETE FROM awe_country WHERE country='" + country + "';");
+//        mdb.execSQL("DELETE FROM ordered WHERE country='" + country + "';");
     }
 
 }

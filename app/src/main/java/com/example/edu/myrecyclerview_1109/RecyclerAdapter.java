@@ -1,5 +1,6 @@
 package com.example.edu.myrecyclerview_1109;
 
+import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -14,6 +15,13 @@ import java.util.HashMap;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyViewHolder> {
     ArrayList<HashMap<String,Object>>arrayList = null;
+    private SQLiteDatabase mdb;
+
+    public RecyclerAdapter(SQLiteDatabase db){
+        this.mdb = db;
+        String query = "SELECT * FROM ordered";
+    }
+
     public RecyclerAdapter(ArrayList<HashMap<String,Object>>arrayList){
 //        데이터
 //        new ArrayList<HashMap<String,Object>>(); 생성자
@@ -36,6 +44,12 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
             itemDetail = (TextView)itemView.findViewById(R.id.item_detail);
         }
     }
+
+    public void addItem(int position, HashMap<String,Object> hashMap){
+        this.arrayList.add(hashMap);
+        notifyItemInserted(position);
+    }
+
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewTYpe) {
